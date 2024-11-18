@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .card h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            width: 80%;
+            justify-content: center;
+        }
+
+        .input-group input {
+            width: 80%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin: 0 5px;
+            color: #333;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <img src="image/FalCoins740.png" alt="Logo" class="logo">
+            <h1>Sign Up</h1>
+
+            <div class="input-group">
+                <span>+63</span>
+                <input type="text" id="phoneNumber" placeholder="Enter phone number" />
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter username" />
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Enter password" />
+            </div>
+
+            <button class="btn" onclick="signUp()">Sign Up</button>
+
+            <div class="footer">
+                <p>Already have an account? <a href="login.html">Log in here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function signUp() {
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Validate the inputs
+            if (!phoneNumber || !username || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Ensure the phone number is numeric and has 10 digits
+            if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+                alert("Please enter a valid phone number (10 digits).");
+                return;
+            }
+
+            // Check if the username already exists
+            const existingUser = localStorage.getItem(username);
+            if (existingUser) {
+                alert("Username already taken!");
+                return;
+            }
+
+            // Check if the phone number already exists
+            const existingPhoneNumber = localStorage.getItem('+63' + phoneNumber);
+            if (existingPhoneNumber) {
+                alert("Phone number already registered!");
+                return;
+            }
+
+            // Create a new user object
+            const userData = {
+                username: username,
+                password: password,
+                phoneNumber: '+63' + phoneNumber,  // Store the full phone number with +63
+                balance: 0,
+                transactions: []
+            };
+
+            // Save the new user to localStorage by username and phone number
+            localStorage.setItem(username, JSON.stringify(userData));
+            localStorage.setItem('+63' + phoneNumber, JSON.stringify(userData));
+
+            alert("Sign up successful!");
+            window.location.href = 'login.html';  // Redirect to login page after successful signup
+        }
+    </script>
+</body>
+</html>

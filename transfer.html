@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Money</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('images/TransferForm copy.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container h1 {
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .container p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            width: 80%;
+        }
+
+        .input-group span {
+            background-color: #f4f4f9;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .input-group input {
+            width: calc(100% - 50px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 0 5px 5px 0;
+            font-size: 1rem;
+            margin-left: -1px;
+            color: #333;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+        }
+
+        button {
+            width: 80%;
+            padding: 12px;
+            margin: 20px 0;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="image/FalCoins740.png" alt="Logo" style="width: 150px; height: auto; margin-bottom: 20px;">
+        
+        <h1>Transfer Money</h1>
+        
+        <div class="input-group">
+            <span>+63</span>
+            <input type="text" id="recipient" placeholder="Enter Recipient Number" />
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="transferAmount" placeholder="Enter Amount" />
+        </div>
+
+        <button onclick="processTransfer()">Transfer</button>
+        <button onclick="goBack()">Back</button>
+
+        <div class="footer">
+            <p>Need help? <a href="#">Contact Support</a></p>
+        </div>
+    </div>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        const userData = JSON.parse(localStorage.getItem(currentUser));
+
+        function processTransfer() {
+            const recipient = document.getElementById('recipient').value.trim();
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+
+            // Validate inputs
+            if (!recipient || isNaN(amount) || amount <= 0) {
+                alert('Please enter valid details.');
+                return;
+            }
+
+            const recipientPhone = '+63' + recipient; // Add +63 to the recipient number for reference
+            const recipientData = JSON.parse(localStorage.getItem(recipientPhone));
+
+            if (!recipientData) {
+                alert('Recipient not found!');
+                return;
+            }
+
+            if (amount > userData.balance) {
+                alert('Insufficient balance!');
+                return;
+            }
+
+            // Deduct from sender and add to recipient
+            userData.balance -= amount;
+            recipientData.balance += amount;
+
+            // Save updated data
+            localStorage.setItem(currentUser, JSON.stringify(userData));
+            localStorage.setItem(recipientPhone, JSON.stringify(recipientData));
+
+            alert('Transfer successful!');
+            window.location.href = 'thirdpage.html';  // Redirect to the next page after transfer
+        }
+
+        function goBack() {
+            window.location.href = 'thirdpage.html';  // Redirect back to the previous page
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #eef2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        .container p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #666666;
+        }
+        .container button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background: #0056b3;
+        }
+        .container .links {
+            margin-top: 20px;
+            color: #666666;
+        }
+        .container .links a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Platform!</h1>
+        <p>Your financial dashboard awaits you. Please log in or sign up to get started.</p>
+        <button onclick="window.location.href='login.html'">Login</button>
+        <div class="links">
+            <p>New here? <a href="signup.html">Create an Account</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .card h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            width: 80%;
+            justify-content: center;
+        }
+
+        .input-group input {
+            width: 80%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin: 0 5px;
+            color: #333;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <img src="image/FalCoins740.png" alt="Logo" class="logo">
+            <h1>Deposit Money</h1>
+
+            <div class="input-group">
+                <input type="number" id="depositAmount" placeholder="Enter amount to deposit" />
+            </div>
+
+            <button class="btn" onclick="processDeposit()">Deposit</button>
+
+            <div class="footer">
+                <p>&copy; 2024 Your Website Name | All rights reserved</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+
+        // If the current user is logged in, fetch their data from localStorage
+        if (currentUser) {
+            const userData = JSON.parse(localStorage.getItem(currentUser));
+
+            // Function to handle the deposit process
+            function processDeposit() {
+                const depositAmount = parseFloat(document.getElementById('depositAmount').value);
+
+                if (isNaN(depositAmount) || depositAmount <= 0) {
+                    alert("Please enter a valid amount.");
+                    return;
+                }
+
+                // Add the deposit amount to the current user's balance
+                userData.balance += depositAmount;
+
+                // Save the updated data back to localStorage
+                localStorage.setItem(currentUser, JSON.stringify(userData));
+
+                alert("Deposit successful!");
+                window.location.href = 'thirdpage.html'; // Redirect to thirdpage after deposit
+            }
+        } else {
+            alert("No user logged in!");
+            window.location.href = 'login.html'; // Redirect to login if no user is logged in
+        }
+    </script>
+</body>
+</html>
